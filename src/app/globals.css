@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --color-slate-950: #020617;
+}
+
+@layer base {
+  body {
+    @apply font-sans;
+  }
+}
+
+@keyframes progress-bar {
+  0% { width: 0%; opacity: 1; }
+  50% { width: 70%; opacity: 1; }
+  100% { width: 100%; opacity: 0; }
+}
+
+.animate-progress-bar {
+  animation: progress-bar 0.8s ease-in-out forwards;
+}
