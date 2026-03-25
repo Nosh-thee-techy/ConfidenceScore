@@ -1,20 +1,58 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Confidence Score
 
-# Run and deploy your AI Studio app
+A Next.js application for AI-assisted trust analysis of news and media content.
+It audits content, produces confidence metrics, and presents supporting views such as registry insights and source comparison.
 
-This contains everything you need to run your app locally.
+## Tech Stack
 
-View your app in AI Studio: https://ai.studio/apps/3d97360e-175a-48db-957a-48b2c4600558
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- Gemini API (`@google/genai`)
 
-## Run Locally
+## Prerequisites
 
-**Prerequisites:**  Node.js
+- Node.js 18+ (Node.js 20+ recommended)
+- npm
 
+## Getting Started
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+2. Create a local environment file:
+   - Copy `.env.example` to `.env.local`
+   - Fill in required values
+3. Start the development server:
    `npm run dev`
+4. Open `http://localhost:3000`
+
+## Environment Variables
+
+Use `.env.local` (not committed to git):
+
+- `GEMINI_API_KEY` (required): Your Gemini API key
+- `GEMINI_MODEL` (optional): Example `gemini-2.5-flash`
+- `GEMINI_MAX_OUTPUT_TOKENS` (optional): Default `8192`
+- `APP_URL` (optional/recommended): Public app URL
+
+Reference template: `.env.example`
+
+## Available Scripts
+
+- `npm run dev` - Start local development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+
+## Main Routes
+
+- `/` - Landing and intake flow
+- `/compare` - Side-by-side source comparison
+- `/registry` - Publisher trust registry
+- `/report/[id]` - Detailed report view
+
+## Notes
+
+- `node_modules/`, `.next/`, and `.env*` are git-ignored by default.
+- Keep API keys and secrets in `.env.local` only.
