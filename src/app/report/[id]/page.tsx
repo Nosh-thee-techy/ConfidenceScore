@@ -31,6 +31,8 @@ import { VerdictCard } from '@/components/VerdictCard';
 import { MediaIntegrityPanel } from '@/components/MediaIntegrityPanel';
 import { CollapsibleProse } from '@/components/CollapsibleProse';
 import { parseChannel, type IntakeChannel } from '@/lib/intake-channels';
+import { EngineLayersBadges } from '@/components/EngineLayersBadges';
+import { VerificationReviews } from '@/components/VerificationReviews';
 import {
   shareAuditReport,
   exportReportJson,
@@ -203,6 +205,7 @@ function ReportContent() {
               <>
             {/* Left Column: Metrics & Summary */}
             <div className="lg:col-span-4 space-y-8">
+              <EngineLayersBadges report={report} query={query ?? ''} />
               <Card className="overflow-hidden border-slate-800 bg-slate-900">
                 <CardHeader className="border-b border-slate-800 bg-slate-900/50">
                   <CardTitle className="font-mono text-xs uppercase tracking-[0.2em] text-slate-500">
@@ -237,6 +240,8 @@ function ReportContent() {
                   </div>
                 </CardContent>
               </Card>
+
+              <VerificationReviews report={report} query={query ?? ''} />
 
               <GapAnalysis gap={report.contextualGap} variant={channel === 'media' ? 'media' : 'default'} />
             </div>

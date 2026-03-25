@@ -61,6 +61,20 @@ export function exportReportMarkdown(
   report: AuditReport,
   meta: { reportId: string; query: string; channel: string },
 ) {
+  const verifiedClaims = report.claims.filter((c) => c.status === 'Verified').length;
+  const inconsistentClaims = report.claims.filter((c) => c.status === 'Inconsistent').length;
+  const unsubstantiatedClaims = report.claims.filter((c) => c.status === 'Unsubstantiated').length;
+
+  const supportingSources = report.sources.filter((s) => s.relevance === 'Supporting').length;
+  const refutingSources = report.sources.filter((s) => s.relevance === 'Refuting').length;
+  const neutralSources = report.sources.filter((s) => s.relevance === 'Neutral').length;
+
+  const gapText = report.contextualGap.trim();
+  const gapItems = gapText
+    ? gapText.split(/\n+/).map((p) => p.trim()).filter(Boolean)
+    : [];
+  const gapCount = gapItems.length ? gapItems.length : gapText ? 1 : 0;
+
   const lines = [
     '# Confidence Score — CS-Index export',
     '',
@@ -78,6 +92,13 @@ export function exportReportMarkdown(
     '## Contextual gap',
     '',
     report.contextualGap,
+    '',
+    '## Verification reviews (derived from engine output)',
+    '',
+    `- Step 1 — Deconstruct into atomic claims: ${report.claims.length} (Verified: ${verifiedClaims}, Inconsistent: ${inconsistentClaims}, Unsubstantiated: ${unsubstantiatedClaims})`,
+    `- Step 2 — Complete picture benchmark (citations): ${report.sources.length} sources (Supporting: ${supportingSources}, Refuting: ${refutingSources}, Neutral/Method: ${neutralSources})`,
+    `- Step 3 — Gap analysis notes: ${gapCount}`,
+    report.isDemo ? '- Note: This report is in demo mode; primary documents were not fetched automatically.' : '',
     '',
     '## Claims',
     '',
